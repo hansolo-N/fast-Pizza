@@ -1,14 +1,36 @@
 import { useState } from 'react'
-import { createBrowserRouter } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './features/ui/Home'
+import Menu from './features/menu/Menu'
+import Cart from './features/cart/Cart'
+import Order from './features/order/Order'
+import CreateOrder from './features/order/CreateOrder'
 
-createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: '/',
     element : <Home/>
   },
   {
-    path:''
+    path:'/menu',
+    element: <Menu/>
+  },
+  {
+    path:'/cart',
+    element :<Cart/>
+  },
+  {
+    path: '/order',
+    children: [
+      {
+        path: 'new',
+        element: <CreateOrder/>
+      },
+      {
+        path: ':orderId',
+        element: <Order/>
+      }
+    ]
   }
 ])
 
@@ -17,7 +39,7 @@ function App() {
   // const test = 12
 
   return (
-<h1>test</h1>
+    <RouterProvider router={router}/>
   )
 }
 
