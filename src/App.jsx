@@ -5,33 +5,41 @@ import Menu from './features/menu/Menu'
 import Cart from './features/cart/Cart'
 import Order from './features/order/Order'
 import CreateOrder from './features/order/CreateOrder'
+import AppLayout from './features/ui/AppLayout'
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element : <Home/>
-  },
-  {
-    path:'/menu',
-    element: <Menu/>
-  },
-  {
-    path:'/cart',
-    element :<Cart/>
-  },
-  {
-    path: '/order',
-    children: [
+    element: <AppLayout/>,
+    children:[
       {
-        path: 'new',
-        element: <CreateOrder/>
+        path: '/',
+        element : <Home/>,
       },
       {
-        path: ':orderId',
-        element: <Order/>
+        path:'/menu',
+        element: <Menu/>
+      },
+      {
+        path:'/cart',
+        element :<Cart/>
+      },
+      {
+        path: '/order',
+        children: [
+          {
+            path: 'new',
+            element: <CreateOrder/>
+          },
+          {
+            path: ':orderId',
+            element: <Order/>
+          }
+        ]
       }
+
     ]
   }
+
 ])
 
 function App() {
