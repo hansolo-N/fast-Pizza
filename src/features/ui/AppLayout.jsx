@@ -13,9 +13,12 @@ function AppLayout() {
     <div className='grid grid-rows-[auto_1fr_auto]  grid-gap-4 h-screen'>
         {isLoading && <Loader/>}
         <Header/>
-        <main className='overflow-scroll'>
+        <div className='overflow-scroll'>
+        <main className='max-w-3xl mx-auto'>
             <Outlet/>
         </main>
+        </div>
+
         <CartOverview/>
     </div>
 
