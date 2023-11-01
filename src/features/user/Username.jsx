@@ -2,7 +2,7 @@ import React from 'react'
 
 function Nasr() {
   return (
-    <div className='text-sm font-semibold'>Nasr</div>
+    <div className='text-sm font-semibold md:block'>Nasr</div>
   )
 }
 
