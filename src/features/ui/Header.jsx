@@ -5,7 +5,7 @@ import Username from '../user/Username'
 
 function Header() {
   return (
-    <header className='bg-red-700'>
+    <header className='bg-red-700 px-4 py-3 uppercase border-b-8 border-stone-950'>
         <Link to="/" className='tracking-[.5rem]'>Nasr's Pizza Co.</Link>
         <SearchOrder/>
         <Username/>
