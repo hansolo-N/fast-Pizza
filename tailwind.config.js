@@ -4,8 +4,14 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {
-    extend: {},
+  theme: {fontFamily:{
+    sans: 'Roboto Mono, monospace'
+  },
+    extend: {
+      height:{
+        screen:'100dvh'
+      }
+    },
   },
   plugins: [],
 }
