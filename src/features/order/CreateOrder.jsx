@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
 import { createOrder } from "../services/apiRestaurant";
+import Button from "../ui/Button";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -49,14 +50,14 @@ function CreateOrder() {
       <Form method="POST" action="">
         <div>
           <label>First Name</label>
-          <input type="text" name="customer" required />
+          <input className="input" type="text" name="customer" required />
         </div>
 
         <div>
           <label>Phone number</label>
 
           <div>
-            <input type="tel" name="phone" required />
+            <input className="input" type="tel" name="phone" required />
           </div>
           {formErrors?.phone && <p>{formErrors.phone}</p>}
         </div>
@@ -64,7 +65,7 @@ function CreateOrder() {
         <div>
           <label>Address</label>
           <div>
-            <input type="text" name="address" required />
+            <input  type="text" name="address" required  className="input"/>
           </div>
         </div>
 
@@ -73,6 +74,7 @@ function CreateOrder() {
             type="checkbox"
             name="priority"
             id="priority"
+            className="h-6 w-6 accent-red-600 text-stone-950"
             // value={withPriority}
             // onChange={(e) => setWithPriority(e.target.checked)}
           />
@@ -81,17 +83,12 @@ function CreateOrder() {
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)}></input>
-          <button disabled={isSubmitting} 
-          className="bg-red-600 
-          uppercase font-semibold
-           text-stone-800 py-3 px-4 inline-block tracking-wide 
-           rounded-full hover:bg-red-400 
-           transition-colors duration-300 focus:outline-none focus:ring focus:ring-red-600 focus:bg-red-600 focus:ring-offset-2
-           disabled:cursor-not-allowed">
+          <Button disabled={isSubmitting} 
+          >
             {
               isSubmitting?"Placing Order": "Order now"
             }
-            </button>
+            </Button>
         </div>
       </Form>
     </div>
