@@ -10,7 +10,7 @@ function MenuItem({ pizza }) {
         <p>{name}</p>
         <p>{ingredients.join(', ')}</p>
         <div className="mt-auto">
-          {!soldOut ? <p>{formatCurrency(unitPrice)}</p> : <p>Sold out</p>}
+          {!soldOut ? <p className="text-sm">{formatCurrency(unitPrice)}</p> : <p className="text-sm uppercase font-medium">Sold out</p>}
         </div>
       </div>
     </li>
