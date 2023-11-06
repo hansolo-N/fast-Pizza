@@ -44,4 +44,4 @@ const cartSlice = createSlice({
 
 export default cartSlice.reducer
 
-export {addItem,removeItem,increaseItemQuantity,decreaseItemQuantity,clearCart} from cartSlice.actions
+export const {addItem,removeItem,increaseItemQuantity,decreaseItemQuantity,clearCart} = cartSlice.actions
