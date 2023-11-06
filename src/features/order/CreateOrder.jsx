@@ -1,9 +1,13 @@
 
 import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
 import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { useState } from "react";
 import { createOrder } from "../services/apiRestaurant";
-import { getCart } from "../cart/cartSlice";
+import {formatCurrency} from '../utilities/helpers'
+import { clearCart, getCart, getTotalCartPrice,} from "../cart/cartSlice";
 import Button from "../ui/Button";
+import EmptyCart from "../cart/EmptyCart";
+import store from '../../store'
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -12,7 +16,8 @@ const isValidPhone = (str) =>
   );
 
 
-function CreateOrder() {
+  function CreateOrder() {
+  const [withPriority, setWithPriority] = useState(false);
   const username = useSelector((store)=>store.user.username)
   const navigation = useNavigation()
   const isSubmitting = navigation.state ==='submitting'
@@ -20,8 +25,12 @@ function CreateOrder() {
   const formErrors = useActionData()
 
 
-  // const [withPriority, setWithPriority] = useState(false);
   const cart = useSelector(getCart);
+  const totalCartPrice = useSelector(getTotalCartPrice)
+  const priorityPrice = withPriority? totalCartPrice * (0.2) :0
+  const totalPrice = totalCartPrice + priorityPrice
+
+  if(cart.length===0) return <EmptyCart/>
 
   return (
     <div className="py-6 px-4">
@@ -55,8 +64,8 @@ function CreateOrder() {
             name="priority"
             id="priority"
             className="h-6 w-6 accent-red-600 text-stone-950"
-            // value={withPriority}
-            // onChange={(e) => setWithPriority(e.target.checked)}
+            value={withPriority}
+            onChange={(e) => setWithPriority(e.target.checked)}
           />
           <label className="font-medium" htmlFor="priority">Want to yo give your order priority?</label>
         </div>
@@ -66,7 +75,7 @@ function CreateOrder() {
           <Button type = 'primary' disabled={isSubmitting} 
           >
             {
-              isSubmitting?"Placing Order": "Order now"
+              isSubmitting?`Placing Order`: `Order now from ${formatCurrency(totalPrice)}`
             }
             </Button>
         </div>
@@ -82,7 +91,7 @@ export async function action({request}){
 
   console.log(data)
 
-  const order = {...data,cart:JSON.parse(data.cart),priority:data.priority ==="on"}
+  const order = {...data,cart:JSON.parse(data.cart),priority:data.priority ==="true"}
 
   const errors = {}
 
@@ -93,6 +102,7 @@ export async function action({request}){
   //if there are no errors in form create the order and redirect
   const newOrder = await createOrder(order)
 
+    store.dispatch(clearCart())
 
 
 return redirect(`/order/${newOrder.id}`)
