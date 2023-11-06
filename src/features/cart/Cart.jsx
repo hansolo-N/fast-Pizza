@@ -14,6 +14,8 @@ function Cart() {
   const username = useSelector((store)=>store.user.username)
   const dispatch = useDispatch()
 
+  console.log(cart)
+
   if(!cart.length){
     return <EmptyCart/>
   }
