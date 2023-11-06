@@ -1,4 +1,3 @@
-import store from '../../store';
 import CreateUser from '../user/CreateUser'
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import Button from './Button';
