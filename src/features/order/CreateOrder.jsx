@@ -2,6 +2,7 @@
 import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { createOrder } from "../services/apiRestaurant";
+import { getCart } from "../cart/cartSlice";
 import Button from "../ui/Button";
 
 // https://uibakery.io/regex-library/phone-number
@@ -10,29 +11,6 @@ const isValidPhone = (str) =>
     str
   );
 
-const fakeCart = [
-  {
-    pizzaId: 12,
-    name: "Mediterranean",
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: 6,
-    name: "Vegetale",
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: 11,
-    name: "Spinach and Mushroom",
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
 
 function CreateOrder() {
   const username = useSelector((store)=>store.user.username)
@@ -43,7 +21,7 @@ function CreateOrder() {
 
 
   // const [withPriority, setWithPriority] = useState(false);
-  const cart = fakeCart;
+  const cart = useSelector(getCart);
 
   return (
     <div className="py-6 px-4">
@@ -67,7 +45,7 @@ function CreateOrder() {
         <div className="mb-5 flex gap-2 flex-col sm:flex-row sm:items-center">
           <label className="sm:basis-40">Address</label>
           <div className="grow">
-            <input class type="text" name="address" required  className="input w-full"/>
+            <input type="text" name="address" required  className="input w-full"/>
           </div>
         </div>
 
