@@ -8,6 +8,8 @@ import { clearCart, getCart, getTotalCartPrice,} from "../cart/cartSlice";
 import Button from "../ui/Button";
 import EmptyCart from "../cart/EmptyCart";
 import store from '../../store'
+import { fetchAddress } from "../user/userSlice";
+import { useDispatch } from "react-redux";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -23,7 +25,7 @@ const isValidPhone = (str) =>
   const isSubmitting = navigation.state ==='submitting'
 
   const formErrors = useActionData()
-
+  const dispatch = useDispatch()
 
   const cart = useSelector(getCart);
   const totalCartPrice = useSelector(getTotalCartPrice)
@@ -36,6 +38,8 @@ const isValidPhone = (str) =>
     <div className="py-6 px-4">
       <h2 className="text-xl font-semibold mb-8">Ready to order? Let's go!</h2>
       {/* Form method="POST" action="" */}
+
+      <button onClick={()=>dispatch(fetchAddress)}>get position</button>
       <Form method="POST" action="">
 
         <div className="mb-5 flex gap-2 flex-col sm:flex-row sm:items-center">
